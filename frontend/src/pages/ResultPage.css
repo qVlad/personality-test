@@ -1,0 +1,117 @@
+.result-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+  padding-top: var(--spacing-xl);
+}
+
+.result-page .card {
+  max-width: 600px;
+  width: 100%;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.result-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.personality-code {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 4px;
+}
+
+.personality-name {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.personality-description {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.traits-section {
+  display: grid;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.trait-group h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.trait-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trait-list li {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.trait-list.strengths li {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.trait-list.growth li {
+  background-color: rgba(107, 114, 128, 0.1);
+  color: var(--color-secondary);
+}
+
+.actions {
+  text-align: center;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.actions .btn {
+  min-width: 200px;
+}
+
+.loading-text {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-xl);
+}
+
+.result-page .error-message {
+  color: var(--color-error);
+  background-color: rgba(239, 68, 68, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .traits-section {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .personality-code {
+    font-size: 80px;
+  }
+}

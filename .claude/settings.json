@@ -1,0 +1,139 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/dev/null)",
+      "Bash(test:*)",
+      "Bash(timeout:*)",
+      "Bash(chmod:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(touch:*)",
+      "Bash(awk:*)",
+      "Bash(basename:*)",
+      "Bash(cat:*)",
+      "Bash(grep -c:*)",
+      "Bash(head:*)",
+      "Bash(sort:*)",
+      "Bash(tail:*)",
+      "Bash(wc -l:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(ls -l:*)",
+      "Bash(sed:*)",
+      "Bash(tee /tmp/claude/*)",
+      "Bash(echo:*)",
+      "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git merge:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git restore:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git stash:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git remote:*)",
+      "Bash(gh:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr view:*)",
+      "Bash(npm:*)",
+      "Bash(npx eslint :*)",
+      "Bash(npx husky --version)",
+      "Bash(npx markdownlint :*)",
+      "Bash(npx prettier :*)",
+      "Bash(npx shellcheck :*)",
+      "Bash(npx tsc :*)",
+      "Bash(npm run format:*)",
+      "Bash(npm run lint:*)",
+      "Bash(ls:*)",
+      "Bash(date:*)",
+      "Bash(jq:*)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(.specify/scripts/bash/setup-plan.sh:*)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Edit(*)",
+      "Write(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebSearch",
+      "SlashCommand(/speckit.clarify)",
+      "SlashCommand(/speckit.implement)",
+      "SlashCommand(/speckit.plan)",
+      "SlashCommand(/speckit.specify:*)",
+      "SlashCommand(/speckit.tasks)",
+      "Task(subagent_type:git-agent,*)",
+      "Task(subagent_type:lint-agent,*)",
+      "Task(subagent_type:test-agent,*)",
+      "Edit(reports/lint/**)",
+      "Edit(reports/**)",
+      "Write(reports/**)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sound-notification.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sound-notification.sh completion",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sound-notification.sh completion",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

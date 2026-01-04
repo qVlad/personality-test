@@ -1,0 +1,431 @@
+openapi: 3.0.3
+info:
+  title: MBTI Personality Test API
+  description: API for the 16 personality types test based on MBTI methodology
+  version: 1.0.0
+  contact:
+    name: API Support
+
+servers:
+  - url: http://localhost:3001/api
+    description: Development server
+
+paths:
+  /session:
+    post:
+      summary: Start a new test session
+      description: Creates a new session or returns existing in-progress session if cookie exists
+      operationId: startSession
+      tags:
+        - Session
+      responses:
+        '200':
+          description: Session created or resumed
+          headers:
+            Set-Cookie:
+              description: Session cookie
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      summary: Get current session state
+      description: Returns the current session state including progress
+      operationId: getSession
+      tags:
+        - Session
+      responses:
+        '200':
+          description: Current session state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '404':
+          description: No active session found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Reset current session
+      description: Clears the current session and starts fresh
+      operationId: resetSession
+      tags:
+        - Session
+      responses:
+        '200':
+          description: Session reset successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /questions/current:
+    get:
+      summary: Get current question
+      description: Returns the current question based on session progress
+      operationId: getCurrentQuestion
+      tags:
+        - Questions
+      responses:
+        '200':
+          description: Current question with progress info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: Test already completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No active session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /questions/{questionId}:
+    get:
+      summary: Get specific question
+      description: Returns a specific question by ID (for navigation back)
+      operationId: getQuestion
+      tags:
+        - Questions
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+      responses:
+        '200':
+          description: Question with answer if previously answered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+        '400':
+          description: Question not yet accessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Question not found or no active session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /answers:
+    post:
+      summary: Submit an answer
+      description: Records the user's answer and advances to next question
+      operationId: submitAnswer
+      tags:
+        - Answers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerRequest'
+      responses:
+        '200':
+          description: Answer recorded, returns next state
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/QuestionResponse'
+                  - $ref: '#/components/schemas/TestCompletedResponse'
+        '400':
+          description: Invalid answer or question
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No active session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /result:
+    get:
+      summary: Get test result
+      description: Returns the personality type result after test completion
+      operationId: getResult
+      tags:
+        - Result
+      responses:
+        '200':
+          description: Test result with personality type details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+        '400':
+          description: Test not yet completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No active session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    SessionResponse:
+      type: object
+      required:
+        - id
+        - currentQuestion
+        - status
+        - totalQuestions
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Session identifier
+        currentQuestion:
+          type: integer
+          minimum: 0
+          maximum: 19
+          description: Current question index (0-based)
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+        totalQuestions:
+          type: integer
+          example: 20
+        result:
+          $ref: '#/components/schemas/MBTICode'
+          nullable: true
+
+    SessionStatus:
+      type: string
+      enum:
+        - in_progress
+        - completed
+
+    QuestionResponse:
+      type: object
+      required:
+        - question
+        - currentIndex
+        - totalQuestions
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        currentIndex:
+          type: integer
+          minimum: 0
+          maximum: 19
+          description: Current question index (0-based)
+        totalQuestions:
+          type: integer
+          example: 20
+        previousAnswer:
+          $ref: '#/components/schemas/Pole'
+          nullable: true
+          description: Previously selected answer for this question, if any
+
+    Question:
+      type: object
+      required:
+        - id
+        - text
+        - options
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          maximum: 20
+        text:
+          type: string
+          maxLength: 500
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionOption'
+          minItems: 2
+          maxItems: 2
+
+    QuestionOption:
+      type: object
+      required:
+        - text
+        - pole
+      properties:
+        text:
+          type: string
+        pole:
+          $ref: '#/components/schemas/Pole'
+
+    Pole:
+      type: string
+      enum:
+        - E
+        - I
+        - S
+        - N
+        - T
+        - F
+        - J
+        - P
+
+    AnswerRequest:
+      type: object
+      required:
+        - questionId
+        - selectedPole
+      properties:
+        questionId:
+          type: integer
+          minimum: 1
+          maximum: 20
+        selectedPole:
+          $ref: '#/components/schemas/Pole'
+
+    TestCompletedResponse:
+      type: object
+      required:
+        - completed
+        - result
+      properties:
+        completed:
+          type: boolean
+          example: true
+        result:
+          $ref: '#/components/schemas/MBTICode'
+
+    ResultResponse:
+      type: object
+      required:
+        - personalityType
+        - answers
+      properties:
+        personalityType:
+          $ref: '#/components/schemas/PersonalityType'
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerSummary'
+
+    PersonalityType:
+      type: object
+      required:
+        - code
+        - name
+        - description
+        - strengths
+        - growthAreas
+      properties:
+        code:
+          $ref: '#/components/schemas/MBTICode'
+        name:
+          type: string
+          example: Стратег
+        description:
+          type: string
+        strengths:
+          type: array
+          items:
+            type: string
+          minItems: 3
+        growthAreas:
+          type: array
+          items:
+            type: string
+          minItems: 3
+
+    MBTICode:
+      type: string
+      enum:
+        - ISTJ
+        - ISFJ
+        - INFJ
+        - INTJ
+        - ISTP
+        - ISFP
+        - INFP
+        - INTP
+        - ESTP
+        - ESFP
+        - ENFP
+        - ENTP
+        - ESTJ
+        - ESFJ
+        - ENFJ
+        - ENTJ
+
+    AnswerSummary:
+      type: object
+      required:
+        - questionId
+        - selectedPole
+      properties:
+        questionId:
+          type: integer
+        selectedPole:
+          $ref: '#/components/schemas/Pole'
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: session_id
+
+security:
+  - sessionCookie: []
+
+tags:
+  - name: Session
+    description: Session management operations
+  - name: Questions
+    description: Question retrieval operations
+  - name: Answers
+    description: Answer submission operations
+  - name: Result
+    description: Test result operations

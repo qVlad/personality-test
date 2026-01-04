@@ -1,0 +1,16 @@
+{
+  "name": "personality-test-shared",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for MBTI Personality Test",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "keywords": ["mbti", "types", "shared"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
