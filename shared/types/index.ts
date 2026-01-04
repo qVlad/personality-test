@@ -1,5 +1,11 @@
-export type { Dichotomy, Pole, QuestionOption, Question } from './question.js';
-export type { MBTICode, PersonalityType } from './personality.js';
+export type { TraitWeight, QuestionOption, Question, AnswerValue } from './question.js';
+export type {
+  ArchetypeCode,
+  ArchetypeGroup,
+  TraitCode,
+  TraitScore,
+  PersonalityType,
+} from './personality.js';
 export type {
   SessionStatus,
   Session,

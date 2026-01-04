@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { getDatabase } from './database.js';
-import type { Session, SessionStatus, MBTICode } from '../../../shared/types/index.js';
+import type { Session, SessionStatus, ArchetypeCode } from '../../../shared/types/index.js';
 
 interface SessionRow {
   id: string;
@@ -82,7 +82,7 @@ export class SessionService {
       id: row.id,
       currentQuestion: row.current_question,
       status: row.status as SessionStatus,
-      result: row.result as MBTICode | null,
+      result: row.result as ArchetypeCode | null,
     };
   }
 }

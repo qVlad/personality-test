@@ -10,11 +10,11 @@ import type {
   QuestionResponse,
   TestCompletedResponse,
   ErrorResponse,
-  Pole,
+  AnswerValue,
 } from '../../../shared/types/index.js';
 
 const router = Router();
-const TOTAL_QUESTIONS = 20;
+const TOTAL_QUESTIONS = 24;
 
 // POST /api/answers - Submit an answer
 router.post(
@@ -37,16 +37,16 @@ router.post(
       throw new AppError('Test already completed', 400);
     }
 
-    const { questionId, selectedPole } = req.body as AnswerRequest;
+    const { questionId, selectedOption } = req.body as AnswerRequest;
 
     // Validate questionId
     if (!questionId || !questionService.isValidQuestionId(questionId)) {
       throw new AppError('Invalid question ID', 400);
     }
 
-    // Validate selectedPole
-    if (!selectedPole || !scoringService.isValidPole(selectedPole)) {
-      throw new AppError('Invalid pole value', 400);
+    // Validate selectedOption
+    if (!selectedOption || !scoringService.isValidAnswerValue(selectedOption)) {
+      throw new AppError('Invalid option value', 400);
     }
 
     // Check if this is the current question or a previously answered question
@@ -58,7 +58,7 @@ router.post(
     }
 
     // Submit the answer
-    answerService.submit(sessionId, questionId, selectedPole as Pole);
+    answerService.submit(sessionId, questionId, selectedOption as AnswerValue);
 
     // If answering current question, advance to next
     if (questionId === currentQuestionId) {
@@ -68,7 +68,7 @@ router.post(
       if (newCurrentQuestion >= TOTAL_QUESTIONS) {
         // Calculate result
         const answers = answerService.getBySession(sessionId);
-        const result = scoringService.calculateMBTI(answers);
+        const result = scoringService.calculateArchetype(answers);
 
         // Update session as completed
         sessionService.update(sessionId, {
@@ -116,7 +116,7 @@ router.post(
       question: currentQuestion,
       currentIndex: session.currentQuestion,
       totalQuestions: TOTAL_QUESTIONS,
-      previousAnswer: previousAnswer?.selectedPole || null,
+      previousAnswer: previousAnswer?.selectedOption || null,
     });
   }
 );

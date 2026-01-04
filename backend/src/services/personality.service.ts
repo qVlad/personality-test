@@ -1,9 +1,12 @@
 import path from 'path';
 import fs from 'fs';
-import type { PersonalityType, MBTICode } from '../../../shared/types/index.js';
+import type { PersonalityType, ArchetypeCode } from '../../../shared/types/index.js';
 
 function loadPersonalityTypes(): PersonalityType[] {
-  const dataPath = path.join(__dirname, '../data/personality-types.json');
+  // In production, look for data in the source directory
+  const srcDataPath = path.join(__dirname, '../../src/data/personality-types.json');
+  const distDataPath = path.join(__dirname, '../data/personality-types.json');
+  const dataPath = fs.existsSync(srcDataPath) ? srcDataPath : distDataPath;
   const data = fs.readFileSync(dataPath, 'utf-8');
   return JSON.parse(data) as PersonalityType[];
 }
@@ -11,7 +14,7 @@ function loadPersonalityTypes(): PersonalityType[] {
 const personalityTypesData: PersonalityType[] = loadPersonalityTypes();
 
 export class PersonalityService {
-  private types: Map<MBTICode, PersonalityType>;
+  private types: Map<ArchetypeCode, PersonalityType>;
 
   constructor() {
     this.types = new Map();
@@ -20,7 +23,7 @@ export class PersonalityService {
     });
   }
 
-  getByCode(code: MBTICode): PersonalityType | null {
+  getByCode(code: ArchetypeCode): PersonalityType | null {
     return this.types.get(code) || null;
   }
 
@@ -28,8 +31,12 @@ export class PersonalityService {
     return personalityTypesData;
   }
 
-  isValidCode(code: string): code is MBTICode {
-    return this.types.has(code as MBTICode);
+  getAllTypes(): PersonalityType[] {
+    return personalityTypesData;
+  }
+
+  isValidCode(code: string): code is ArchetypeCode {
+    return this.types.has(code as ArchetypeCode);
   }
 }
 

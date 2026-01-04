@@ -1,14 +1,20 @@
-export type Dichotomy = 'EI' | 'SN' | 'TF' | 'JP';
-export type Pole = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
+import type { TraitCode } from './personality.js';
+
+export interface TraitWeight {
+  trait: TraitCode;
+  weight: number; // positive = increases trait, negative = decreases
+}
 
 export interface QuestionOption {
   text: string;
-  pole: Pole;
+  traits: TraitWeight[];
 }
 
 export interface Question {
   id: number;
   text: string;
-  dichotomy: Dichotomy;
   options: [QuestionOption, QuestionOption];
 }
+
+// For backward compatibility with answer storage
+export type AnswerValue = 'A' | 'B';

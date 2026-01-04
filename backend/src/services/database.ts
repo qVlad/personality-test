@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE TABLE IF NOT EXISTS answers (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
-  question_id INTEGER NOT NULL CHECK (question_id BETWEEN 1 AND 20),
-  selected_pole TEXT NOT NULL CHECK (selected_pole IN ('E', 'I', 'S', 'N', 'T', 'F', 'J', 'P')),
+  question_id INTEGER NOT NULL CHECK (question_id BETWEEN 1 AND 24),
+  selected_option TEXT NOT NULL CHECK (selected_option IN ('A', 'B')),
   answered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   UNIQUE(session_id, question_id)
 );

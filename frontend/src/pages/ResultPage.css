@@ -24,18 +24,18 @@
   margin-bottom: var(--spacing-sm);
 }
 
-.personality-code {
-  font-size: 64px;
-  font-weight: 700;
+.archetype-group {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
   color: var(--color-primary);
   margin-bottom: var(--spacing-sm);
-  letter-spacing: 4px;
 }
 
 .personality-name {
-  font-size: var(--font-size-xl);
+  font-size: 48px;
   color: var(--color-text);
-  font-weight: 500;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .personality-description {
@@ -81,6 +81,57 @@
   color: var(--color-secondary);
 }
 
+/* Trait Scores Section */
+.trait-scores-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.trait-scores-section h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.trait-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.trait-bar {
+  width: 100%;
+}
+
+.trait-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: var(--font-size-sm);
+}
+
+.trait-name {
+  color: var(--color-text);
+}
+
+.trait-score {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.trait-bar-bg {
+  height: 8px;
+  background-color: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.trait-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), #8b5cf6);
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
 .actions {
   text-align: center;
   padding-top: var(--spacing-md);
@@ -111,7 +162,7 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .personality-code {
-    font-size: 80px;
+  .personality-name {
+    font-size: 56px;
   }
 }

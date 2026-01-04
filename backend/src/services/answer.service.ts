@@ -1,32 +1,32 @@
 import { getDatabase } from './database.js';
-import type { Answer, Pole } from '../../../shared/types/index.js';
+import type { Answer, AnswerValue } from '../../../shared/types/index.js';
 
 interface AnswerRow {
   id: number;
   session_id: string;
   question_id: number;
-  selected_pole: string;
+  selected_option: string;
   answered_at: string;
 }
 
 export class AnswerService {
-  submit(sessionId: string, questionId: number, selectedPole: Pole): Answer {
+  submit(sessionId: string, questionId: number, selectedOption: AnswerValue): Answer {
     const db = getDatabase();
 
     // Use upsert (INSERT OR REPLACE) to handle answer updates
     db.prepare(
       `
-      INSERT INTO answers (session_id, question_id, selected_pole)
+      INSERT INTO answers (session_id, question_id, selected_option)
       VALUES (?, ?, ?)
       ON CONFLICT(session_id, question_id) DO UPDATE SET
-        selected_pole = excluded.selected_pole,
+        selected_option = excluded.selected_option,
         answered_at = CURRENT_TIMESTAMP
     `
-    ).run(sessionId, questionId, selectedPole);
+    ).run(sessionId, questionId, selectedOption);
 
     return {
       questionId,
-      selectedPole,
+      selectedOption,
     };
   }
 
@@ -38,7 +38,7 @@ export class AnswerService {
 
     return rows.map((row) => ({
       questionId: row.question_id,
-      selectedPole: row.selected_pole as Pole,
+      selectedOption: row.selected_option as AnswerValue,
     }));
   }
 
@@ -54,7 +54,7 @@ export class AnswerService {
 
     return {
       questionId: row.question_id,
-      selectedPole: row.selected_pole as Pole,
+      selectedOption: row.selected_option as AnswerValue,
     };
   }
 

@@ -1,182 +1,338 @@
 [
   {
     "id": 1,
-    "text": "На вечеринке вы обычно:",
-    "dichotomy": "EI",
+    "text": "Когда вы сталкиваетесь с проблемой, вы предпочитаете:",
     "options": [
-      { "text": "Общаетесь со многими людьми, включая незнакомых", "pole": "E" },
-      { "text": "Общаетесь с несколькими близкими знакомыми", "pole": "I" }
+      {
+        "text": "Искать нестандартное, творческое решение",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "CONCEPTUAL", "weight": 1 }]
+      },
+      {
+        "text": "Использовать проверенные методы, которые работали раньше",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 2,
-    "text": "После долгого рабочего дня вы предпочитаете:",
-    "dichotomy": "EI",
+    "text": "На выходных вы предпочитаете:",
     "options": [
-      { "text": "Встретиться с друзьями и пообщаться", "pole": "E" },
-      { "text": "Побыть в одиночестве и восстановить силы", "pole": "I" }
+      {
+        "text": "Встретиться с друзьями или пойти на мероприятие",
+        "traits": [{ "trait": "EXTRAVERTED", "weight": 2 }, { "trait": "NURTURING", "weight": 1 }]
+      },
+      {
+        "text": "Провести время в одиночестве или с близким человеком",
+        "traits": [{ "trait": "AUTONOMOUS", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 3,
-    "text": "В новой компании вы:",
-    "dichotomy": "EI",
+    "text": "При принятии важного решения вы:",
     "options": [
-      { "text": "Легко заводите разговор с незнакомцами", "pole": "E" },
-      { "text": "Ждёте, пока кто-то заговорит с вами", "pole": "I" }
+      {
+        "text": "Тщательно анализируете все варианты и возможные последствия",
+        "traits": [{ "trait": "DELIBERATIVE", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      },
+      {
+        "text": "Доверяете интуиции и действуете решительно",
+        "traits": [{ "trait": "DETERMINED", "weight": 2 }, { "trait": "AUTONOMOUS", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 4,
-    "text": "Вы лучше работаете, когда:",
-    "dichotomy": "EI",
+    "text": "В командной работе вы обычно:",
     "options": [
-      { "text": "Вокруг много людей и активное общение", "pole": "E" },
-      { "text": "Вы можете сосредоточиться в тишине", "pole": "I" }
+      {
+        "text": "Берёте на себя роль лидера и координируете работу",
+        "traits": [{ "trait": "LEADERSHIP", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      },
+      {
+        "text": "Поддерживаете команду и заботитесь о комфорте участников",
+        "traits": [{ "trait": "NURTURING", "weight": 2 }, { "trait": "EXTRAVERTED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 5,
-    "text": "Ваш идеальный выходной:",
-    "dichotomy": "EI",
+    "text": "Когда кто-то делает ошибку, вы:",
     "options": [
-      { "text": "Активный отдых с друзьями и новые знакомства", "pole": "E" },
-      { "text": "Спокойное время дома с книгой или хобби", "pole": "I" }
+      {
+        "text": "Прямо указываете на проблему, даже если это неприятно",
+        "traits": [{ "trait": "TOUGH", "weight": 2 }, { "trait": "DELIBERATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Стараетесь мягко объяснить, учитывая чувства человека",
+        "traits": [{ "trait": "NURTURING", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 6,
-    "text": "При принятии решений вы больше полагаетесь на:",
-    "dichotomy": "SN",
+    "text": "Вас больше мотивирует:",
     "options": [
-      { "text": "Конкретные факты и прошлый опыт", "pole": "S" },
-      { "text": "Интуицию и общую картину", "pole": "N" }
+      {
+        "text": "Достижение амбициозных целей и результатов",
+        "traits": [{ "trait": "DETERMINED", "weight": 2 }, { "trait": "LEADERSHIP", "weight": 1 }]
+      },
+      {
+        "text": "Процесс творчества и исследования новых идей",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "CONCEPTUAL", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 7,
-    "text": "Что вас больше привлекает:",
-    "dichotomy": "SN",
+    "text": "В стрессовой ситуации вы:",
     "options": [
-      { "text": "Практичные и проверенные методы", "pole": "S" },
-      { "text": "Новые идеи и возможности", "pole": "N" }
+      {
+        "text": "Сохраняете спокойствие и действуете хладнокровно",
+        "traits": [{ "trait": "COMPOSED", "weight": 2 }, { "trait": "DELIBERATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Активно мобилизуетесь и энергично решаете проблему",
+        "traits": [{ "trait": "DETERMINED", "weight": 2 }, { "trait": "PRACTICAL", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 8,
-    "text": "Читая книгу, вы предпочитаете:",
-    "dichotomy": "SN",
+    "text": "При планировании проекта вы:",
     "options": [
-      { "text": "Реалистичные истории с детальными описаниями", "pole": "S" },
-      { "text": "Фантастику и абстрактные концепции", "pole": "N" }
+      {
+        "text": "Создаёте детальный план с конкретными шагами",
+        "traits": [{ "trait": "DETAILED", "weight": 2 }, { "trait": "PRACTICAL", "weight": 1 }]
+      },
+      {
+        "text": "Определяете общее направление и адаптируетесь по ходу",
+        "traits": [{ "trait": "CONCEPTUAL", "weight": 2 }, { "trait": "CREATIVE", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 9,
-    "text": "При описании события вы обычно:",
-    "dichotomy": "SN",
+    "text": "Вы предпочитаете работать:",
     "options": [
-      { "text": "Рассказываете точные факты и детали", "pole": "S" },
-      { "text": "Делитесь общим впечатлением и смыслом", "pole": "N" }
+      {
+        "text": "Самостоятельно, следуя своему видению",
+        "traits": [{ "trait": "AUTONOMOUS", "weight": 2 }, { "trait": "CREATIVE", "weight": 1 }]
+      },
+      {
+        "text": "В команде, обсуждая идеи с другими",
+        "traits": [{ "trait": "EXTRAVERTED", "weight": 2 }, { "trait": "NURTURING", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 10,
-    "text": "Вам интереснее:",
-    "dichotomy": "SN",
+    "text": "Что для вас важнее в работе:",
     "options": [
-      { "text": "То, что существует здесь и сейчас", "pole": "S" },
-      { "text": "То, что может быть в будущем", "pole": "N" }
+      {
+        "text": "Практический результат, который можно измерить",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      },
+      {
+        "text": "Инновационность и новизна подхода",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "CONCEPTUAL", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 11,
-    "text": "При разрешении конфликта вы:",
-    "dichotomy": "TF",
+    "text": "В конфликтной ситуации вы:",
     "options": [
-      { "text": "Анализируете ситуацию логически и справедливо", "pole": "T" },
-      { "text": "Учитываете чувства всех участников", "pole": "F" }
+      {
+        "text": "Отстаиваете свою позицию твёрдо и настойчиво",
+        "traits": [{ "trait": "TOUGH", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      },
+      {
+        "text": "Ищете компромисс, учитывая интересы всех сторон",
+        "traits": [{ "trait": "NURTURING", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 12,
-    "text": "Что важнее в работе:",
-    "dichotomy": "TF",
+    "text": "Вы лучше справляетесь с задачами, где нужно:",
     "options": [
-      { "text": "Эффективность и результат", "pole": "T" },
-      { "text": "Гармония в коллективе", "pole": "F" }
+      {
+        "text": "Глубоко разобраться в деталях и нюансах",
+        "traits": [{ "trait": "DETAILED", "weight": 2 }, { "trait": "DELIBERATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Увидеть общую картину и стратегию",
+        "traits": [{ "trait": "CONCEPTUAL", "weight": 2 }, { "trait": "LEADERSHIP", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 13,
-    "text": "Когда друг делится проблемой, вы:",
-    "dichotomy": "TF",
+    "text": "Когда появляется новая возможность, вы:",
     "options": [
-      { "text": "Предлагаете практические решения", "pole": "T" },
-      { "text": "Выражаете сочувствие и поддержку", "pole": "F" }
+      {
+        "text": "Быстро действуете, чтобы не упустить шанс",
+        "traits": [{ "trait": "DETERMINED", "weight": 2 }, { "trait": "EXTRAVERTED", "weight": 1 }]
+      },
+      {
+        "text": "Внимательно оцениваете риски перед принятием решения",
+        "traits": [{ "trait": "DELIBERATIVE", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 14,
-    "text": "Критику вы воспринимаете как:",
-    "dichotomy": "TF",
+    "text": "Вам комфортнее:",
     "options": [
-      { "text": "Возможность улучшиться объективно", "pole": "T" },
-      { "text": "Что-то личное, что может задеть", "pole": "F" }
+      {
+        "text": "Руководить людьми и направлять их работу",
+        "traits": [{ "trait": "LEADERSHIP", "weight": 2 }, { "trait": "TOUGH", "weight": 1 }]
+      },
+      {
+        "text": "Выполнять задачи самостоятельно и качественно",
+        "traits": [{ "trait": "AUTONOMOUS", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 15,
-    "text": "При принятии решения вы руководствуетесь:",
-    "dichotomy": "TF",
+    "text": "Успех для вас — это:",
     "options": [
-      { "text": "Логикой и объективными критериями", "pole": "T" },
-      { "text": "Ценностями и влиянием на людей", "pole": "F" }
+      {
+        "text": "Достижение конкретных, измеримых результатов",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      },
+      {
+        "text": "Реализация своего творческого потенциала",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "AUTONOMOUS", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 16,
-    "text": "Вы предпочитаете:",
-    "dichotomy": "JP",
+    "text": "В общении с людьми вы:",
     "options": [
-      { "text": "Планировать заранее и следовать плану", "pole": "J" },
-      { "text": "Действовать спонтанно и гибко", "pole": "P" }
+      {
+        "text": "Легко заводите новые знакомства и поддерживаете разговор",
+        "traits": [{ "trait": "EXTRAVERTED", "weight": 2 }, { "trait": "NURTURING", "weight": 1 }]
+      },
+      {
+        "text": "Предпочитаете глубокие беседы с небольшим кругом людей",
+        "traits": [{ "trait": "DELIBERATIVE", "weight": 2 }, { "trait": "AUTONOMOUS", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 17,
-    "text": "Дедлайны для вас:",
-    "dichotomy": "JP",
+    "text": "При выборе решения вы больше ориентируетесь на:",
     "options": [
-      { "text": "Важные ориентиры, которые нужно соблюдать", "pole": "J" },
-      { "text": "Примерные рамки, которые можно корректировать", "pole": "P" }
+      {
+        "text": "Логику, факты и объективный анализ",
+        "traits": [{ "trait": "TOUGH", "weight": 2 }, { "trait": "DELIBERATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Влияние на людей и их чувства",
+        "traits": [{ "trait": "NURTURING", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 18,
-    "text": "Ваш рабочий стол обычно:",
-    "dichotomy": "JP",
+    "text": "Вы чувствуете себя увереннее, когда:",
     "options": [
-      { "text": "Организован и структурирован", "pole": "J" },
-      { "text": "Творческий беспорядок, но вы знаете, где что лежит", "pole": "P" }
+      {
+        "text": "Имеете чёткий план и структуру действий",
+        "traits": [{ "trait": "DETAILED", "weight": 2 }, { "trait": "PRACTICAL", "weight": 1 }]
+      },
+      {
+        "text": "Есть свобода для импровизации и творчества",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "AUTONOMOUS", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 19,
-    "text": "В путешествии вы:",
-    "dichotomy": "JP",
+    "text": "Когда вы не согласны с кем-то, вы:",
     "options": [
-      { "text": "Составляете детальный план", "pole": "J" },
-      { "text": "Оставляете место для импровизации", "pole": "P" }
+      {
+        "text": "Открыто выражаете своё мнение, даже если это вызовет напряжение",
+        "traits": [{ "trait": "TOUGH", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      },
+      {
+        "text": "Ищете способ выразить несогласие дипломатично",
+        "traits": [{ "trait": "COMPOSED", "weight": 2 }, { "trait": "NURTURING", "weight": 1 }]
+      }
     ]
   },
   {
     "id": 20,
-    "text": "Незавершённые дела:",
-    "dichotomy": "JP",
+    "text": "Вас больше привлекает:",
     "options": [
-      { "text": "Беспокоят вас, пока не будут закрыты", "pole": "J" },
-      { "text": "Не особо волнуют, к ним можно вернуться", "pole": "P" }
+      {
+        "text": "Теоретические концепции и абстрактные идеи",
+        "traits": [{ "trait": "CONCEPTUAL", "weight": 2 }, { "trait": "CREATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Практические навыки и конкретные решения",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "text": "В организации вы предпочитаете:",
+    "options": [
+      {
+        "text": "Влиять на стратегические решения и направление",
+        "traits": [{ "trait": "LEADERSHIP", "weight": 2 }, { "trait": "CONCEPTUAL", "weight": 1 }]
+      },
+      {
+        "text": "Выполнять свою работу качественно и надёжно",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETAILED", "weight": 1 }]
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "text": "Когда что-то идёт не по плану, вы:",
+    "options": [
+      {
+        "text": "Сохраняете спокойствие и методично решаете проблему",
+        "traits": [{ "trait": "COMPOSED", "weight": 2 }, { "trait": "DELIBERATIVE", "weight": 1 }]
+      },
+      {
+        "text": "Быстро адаптируетесь и находите альтернативные пути",
+        "traits": [{ "trait": "CREATIVE", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "text": "Вам важнее:",
+    "options": [
+      {
+        "text": "Быть правым и достичь справедливости",
+        "traits": [{ "trait": "TOUGH", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      },
+      {
+        "text": "Сохранить хорошие отношения с людьми",
+        "traits": [{ "trait": "NURTURING", "weight": 2 }, { "trait": "COMPOSED", "weight": 1 }]
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "text": "Вы предпочитаете браться за задачи, которые:",
+    "options": [
+      {
+        "text": "Требуют глубокого анализа и исследования",
+        "traits": [{ "trait": "DELIBERATIVE", "weight": 2 }, { "trait": "CONCEPTUAL", "weight": 1 }]
+      },
+      {
+        "text": "Дают быстрый видимый результат",
+        "traits": [{ "trait": "PRACTICAL", "weight": 2 }, { "trait": "DETERMINED", "weight": 1 }]
+      }
     ]
   }
 ]

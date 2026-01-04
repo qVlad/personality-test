@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { api, ApiError } from '../services/api';
 import AnswerOption from '../components/AnswerOption';
 import BackButton from '../components/BackButton';
-import type { QuestionResponse, Pole } from '../../../shared/types/index';
+import type { QuestionResponse, AnswerValue } from '../../../shared/types/index';
 import './QuestionPage.css';
 
 export default function QuestionPage(): JSX.Element {
@@ -15,7 +15,7 @@ export default function QuestionPage(): JSX.Element {
   const [submitting, setSubmitting] = useState(false);
   const [navigatingBack, setNavigatingBack] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedAnswer, setSelectedAnswer] = useState<Pole | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<AnswerValue | null>(null);
 
   useEffect(() => {
     loadQuestion();
@@ -57,17 +57,17 @@ export default function QuestionPage(): JSX.Element {
     }
   }
 
-  async function handleSelectAnswer(pole: Pole): Promise<void> {
+  async function handleSelectAnswer(optionValue: AnswerValue): Promise<void> {
     if (!questionData || submitting) return;
 
-    setSelectedAnswer(pole);
+    setSelectedAnswer(optionValue);
     setSubmitting(true);
     setError(null);
 
     try {
       const response = await api.submitAnswer({
         questionId: questionData.question.id,
-        selectedPole: pole,
+        selectedOption: optionValue,
       });
 
       if ('completed' in response && response.completed) {
@@ -75,8 +75,9 @@ export default function QuestionPage(): JSX.Element {
         navigate('/result');
       } else {
         // Navigate to next question
-        setQuestionData(response);
-        setSelectedAnswer(response.previousAnswer);
+        const questionResponse = response as QuestionResponse;
+        setQuestionData(questionResponse);
+        setSelectedAnswer(questionResponse.previousAnswer);
       }
     } catch (err) {
       if (err instanceof ApiError) {
@@ -190,16 +191,19 @@ export default function QuestionPage(): JSX.Element {
         )}
 
         <div className="answers-container">
-          {question.options.map((option) => (
-            <AnswerOption
-              key={option.pole}
-              text={option.text}
-              pole={option.pole}
-              isSelected={selectedAnswer === option.pole}
-              onSelect={handleSelectAnswer}
-              disabled={submitting || navigatingBack}
-            />
-          ))}
+          {question.options.map((option, index) => {
+            const optionValue: AnswerValue = index === 0 ? 'A' : 'B';
+            return (
+              <AnswerOption
+                key={optionValue}
+                text={option.text}
+                optionValue={optionValue}
+                isSelected={selectedAnswer === optionValue}
+                onSelect={handleSelectAnswer}
+                disabled={submitting || navigatingBack}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

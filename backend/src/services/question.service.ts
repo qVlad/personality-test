@@ -3,7 +3,10 @@ import fs from 'fs';
 import type { Question } from '../../../shared/types/index.js';
 
 function loadQuestions(): Question[] {
-  const dataPath = path.join(__dirname, '../data/questions.json');
+  // In production, look for data in the source directory
+  const srcDataPath = path.join(__dirname, '../../src/data/questions.json');
+  const distDataPath = path.join(__dirname, '../data/questions.json');
+  const dataPath = fs.existsSync(srcDataPath) ? srcDataPath : distDataPath;
   const data = fs.readFileSync(dataPath, 'utf-8');
   return JSON.parse(data) as Question[];
 }
@@ -18,6 +21,10 @@ export class QuestionService {
   }
 
   getAll(): Question[] {
+    return this.questions;
+  }
+
+  getAllQuestions(): Question[] {
     return this.questions;
   }
 

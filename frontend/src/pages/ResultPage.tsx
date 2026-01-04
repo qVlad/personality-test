@@ -1,8 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../services/api';
-import type { ResultResponse } from '../../../shared/types/index';
+import type { ResultResponse, TraitScore } from '../../../shared/types/index';
 import './ResultPage.css';
+
+const TRAIT_NAMES: Record<string, string> = {
+  CREATIVE: 'Креативность',
+  DELIBERATIVE: 'Обдуманность',
+  DETAILED: 'Внимание к деталям',
+  CONCEPTUAL: 'Концептуальность',
+  PRACTICAL: 'Практичность',
+  EXTRAVERTED: 'Экстраверсия',
+  TOUGH: 'Прямота',
+  NURTURING: 'Забота',
+  LEADERSHIP: 'Лидерство',
+  COMPOSED: 'Самообладание',
+  AUTONOMOUS: 'Автономность',
+  DETERMINED: 'Целеустремлённость',
+};
+
+function TraitBar({ trait, score }: TraitScore): JSX.Element {
+  return (
+    <div className="trait-bar">
+      <div className="trait-label">
+        <span className="trait-name">{TRAIT_NAMES[trait] || trait}</span>
+        <span className="trait-score">{score}%</span>
+      </div>
+      <div className="trait-bar-bg">
+        <div className="trait-bar-fill" style={{ width: `${score}%` }} />
+      </div>
+    </div>
+  );
+}
 
 export default function ResultPage(): JSX.Element {
   const navigate = useNavigate();
@@ -81,15 +110,18 @@ export default function ResultPage(): JSX.Element {
     );
   }
 
-  const { personalityType } = result;
+  const { personalityType, traitScores } = result;
+
+  // Sort traits by score descending for display
+  const sortedTraits = [...traitScores].sort((a, b) => b.score - a.score);
 
   return (
     <div className="result-page">
       <div className="card">
         <div className="result-header">
-          <p className="result-label">Ваш тип личности</p>
-          <h1 className="personality-code">{personalityType.code}</h1>
-          <h2 className="personality-name">{personalityType.name}</h2>
+          <p className="result-label">Ваш архетип</p>
+          <p className="archetype-group">{personalityType.groupName}</p>
+          <h1 className="personality-name">{personalityType.name}</h1>
         </div>
 
         <p className="personality-description">{personalityType.description}</p>
@@ -111,6 +143,15 @@ export default function ResultPage(): JSX.Element {
                 <li key={index}>{area}</li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        <div className="trait-scores-section">
+          <h3>Ваш профиль черт</h3>
+          <div className="trait-bars">
+            {sortedTraits.map((traitScore) => (
+              <TraitBar key={traitScore.trait} {...traitScore} />
+            ))}
           </div>
         </div>
 

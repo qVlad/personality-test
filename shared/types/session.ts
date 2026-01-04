@@ -1,5 +1,5 @@
-import type { Pole, Question } from './question.js';
-import type { MBTICode, PersonalityType } from './personality.js';
+import type { AnswerValue, Question } from './question.js';
+import type { ArchetypeCode, PersonalityType, TraitScore } from './personality.js';
 
 export type SessionStatus = 'in_progress' | 'completed';
 
@@ -7,12 +7,12 @@ export interface Session {
   id: string;
   currentQuestion: number;
   status: SessionStatus;
-  result: MBTICode | null;
+  result: ArchetypeCode | null;
 }
 
 export interface Answer {
   questionId: number;
-  selectedPole: Pole;
+  selectedOption: AnswerValue;
 }
 
 export interface SessionWithAnswers extends Session {
@@ -25,23 +25,24 @@ export interface SessionResponse {
   currentQuestion: number;
   status: SessionStatus;
   totalQuestions: number;
-  result: MBTICode | null;
+  result: ArchetypeCode | null;
 }
 
 export interface QuestionResponse {
   question: Question;
   currentIndex: number;
   totalQuestions: number;
-  previousAnswer: Pole | null;
+  previousAnswer: AnswerValue | null;
 }
 
 export interface TestCompletedResponse {
   completed: true;
-  result: MBTICode;
+  result: ArchetypeCode;
 }
 
 export interface ResultResponse {
   personalityType: PersonalityType;
+  traitScores: TraitScore[];
   answers: Answer[];
 }
 
@@ -53,5 +54,5 @@ export interface ErrorResponse {
 
 export interface AnswerRequest {
   questionId: number;
-  selectedPole: Pole;
+  selectedOption: AnswerValue;
 }

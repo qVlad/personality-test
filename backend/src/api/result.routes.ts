@@ -2,8 +2,9 @@ import { Router, Request, Response } from 'express';
 import { sessionService } from '../services/session.service.js';
 import { answerService } from '../services/answer.service.js';
 import { personalityService } from '../services/personality.service.js';
+import { scoringService } from '../services/scoring.service.js';
 import { AppError } from '../middleware/errorHandler.js';
-import type { ResultResponse, ErrorResponse } from '../../../shared/types/index.js';
+import type { ResultResponse, ErrorResponse, ArchetypeCode } from '../../../shared/types/index.js';
 
 const router = Router();
 
@@ -25,16 +26,18 @@ router.get('/', (req: Request, res: Response<ResultResponse | ErrorResponse>) =>
     throw new AppError('Test not yet completed', 400);
   }
 
-  const personalityType = personalityService.getByCode(session.result);
+  const personalityType = personalityService.getByCode(session.result as ArchetypeCode);
 
   if (!personalityType) {
     throw new AppError('Personality type not found', 500);
   }
 
   const answers = answerService.getBySession(sessionId);
+  const traitScores = scoringService.calculateTraitScores(answers);
 
   res.json({
     personalityType,
+    traitScores,
     answers,
   });
 });

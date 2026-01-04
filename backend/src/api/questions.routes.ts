@@ -38,7 +38,7 @@ router.get('/current', (req: Request, res: Response<QuestionResponse | ErrorResp
     question,
     currentIndex: session.currentQuestion,
     totalQuestions: questionService.getTotalCount(),
-    previousAnswer: previousAnswer?.selectedPole || null,
+    previousAnswer: previousAnswer?.selectedOption || null,
   });
 });
 
@@ -83,7 +83,7 @@ router.get('/:id', (req: Request, res: Response<QuestionResponse | ErrorResponse
     question,
     currentIndex: questionIndex,
     totalQuestions: questionService.getTotalCount(),
-    previousAnswer: previousAnswer?.selectedPole || null,
+    previousAnswer: previousAnswer?.selectedOption || null,
   });
 });
 
